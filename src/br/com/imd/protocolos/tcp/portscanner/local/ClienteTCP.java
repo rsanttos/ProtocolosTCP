@@ -1,4 +1,4 @@
-package br.com.imd.protocolos.tcp.time;
+package br.com.imd.protocolos.tcp.portscanner.local;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -11,7 +11,7 @@ public class ClienteTCP {
 
 	public static void main(String[] args) throws IOException {
 
-		Socket socket = new Socket("localhost", 80);
+		Socket socket = new Socket("localhost", 7777);
 		System.out.println("Cliente conectado com o servidor " + socket.getInetAddress().getHostAddress() + ":"
 				+ socket.getPort());
 
