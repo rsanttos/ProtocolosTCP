@@ -1,4 +1,4 @@
-package br.com.imd.protocolos.tcp.echo;
+package br.com.imd.protocolos.tcp.time;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -17,19 +17,13 @@ public class ClienteTCP {
 
 		DataOutputStream outBytes = new DataOutputStream(socket.getOutputStream());
 		String mensagem = "";
-
-		System.out.print("Digite a mensagem para enviar ao servidor: ");
-		mensagem = leitorTeclado.nextLine();		
-		
-		outBytes.write(mensagem.getBytes());
-		
-		System.out.println("Mensagem enviada para servidor...");
+		mensagem = "Manda a hora aí!";				
+		outBytes.write(mensagem.getBytes());		
+		System.out.println("Mensagem enviada para servidor!");
 		
 		DataInputStream inBytes = new DataInputStream(socket.getInputStream());
-		byte[] data = new byte[128];
-		inBytes.read(data);
-		String rcvdMessage = new String(data).trim();
-		System.out.println(rcvdMessage);			
+		int data = inBytes.readInt();
+		System.out.println("Segundos enviados pelo servidor: " + data);			
 		
 		socket.close();
 	}
