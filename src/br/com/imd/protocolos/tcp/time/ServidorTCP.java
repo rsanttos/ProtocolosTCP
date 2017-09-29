@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.time.Instant;
+import java.util.Date;
 
 public class ServidorTCP {
 	public static void main(String[] args) throws IOException {
@@ -19,18 +20,20 @@ public class ServidorTCP {
 			System.out.println("Cliente " + socket.getInetAddress().getHostAddress() + " conectado.");
 
 			DataInputStream inBytes = new DataInputStream(socket.getInputStream());
-			byte[] data = new byte[128];
-			inBytes.read(data);
-			String mensagemRecebida = new String(data).trim();
+			byte[] dadosRecedidos = new byte[128];
+			inBytes.read(dadosRecedidos);
+			String mensagemRecebida = new String(dadosRecedidos).trim();
 			System.out.println("Cliente diz: " + mensagemRecebida);
 
 			Instant instant = Instant.now();
-			long timeStampSeconds = instant.getEpochSecond();
+			long timeStampSegundos = instant.getEpochSecond();
+			
+			Date data = new Date((long) (timeStampSegundos * 1000));
 
 			DataOutputStream outBytes = new DataOutputStream(socket.getOutputStream());
-			outBytes.writeInt((int) timeStampSeconds);
+			outBytes.writeInt((int) timeStampSegundos);
 
-			System.out.println("Timestamp: " + timeStampSeconds + " enviado para o cliente.");
+			System.out.println("Data " + data + " enviada para o cliente no formato: " + timeStampSegundos);
 			System.out.println("--------------------------------------------------------------------");
 
 			socket.close();
