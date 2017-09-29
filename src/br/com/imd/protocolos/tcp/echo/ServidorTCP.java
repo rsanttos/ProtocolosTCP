@@ -9,20 +9,23 @@ import java.net.Socket;
 public class ServidorTCP {
 	public static void main(String[] args) throws IOException {
 
+		System.out.println("Servidor em execução.");
 		while (true) {			
 			ServerSocket connectionSocket = new ServerSocket(7777);
-			System.out.println("Servidor em execução...");
+			System.out.println("--------------------------------------------------------------------");
 			System.out.println("Aguardando conexão do cliente...");
 			Socket socket = connectionSocket.accept();
 			System.out.println("Cliente " + socket.getInetAddress().getHostAddress() + " conectado!");
 			DataInputStream inBytes = new DataInputStream(socket.getInputStream());
 			byte[] data = new byte[128];
-			System.out.println(inBytes.read(data) + " bytes recebidos...");
-			String rcvdMessage = new String(data).trim();
-			System.out.println(rcvdMessage);			
+			inBytes.read(data);
+			
+			String mensagemRecebida = new String(data).trim();
+			System.out.println("Mensagem recebida: " + mensagemRecebida);			
 			DataOutputStream outBytes = new DataOutputStream(socket.getOutputStream());				
-			outBytes.write(rcvdMessage.getBytes());			
-			System.out.println("Mensagem enviada para o cliente...");
+			outBytes.write(mensagemRecebida.getBytes());			
+			System.out.println("Mensagem retornada para o cliente: " + mensagemRecebida);
+			System.out.println("--------------------------------------------------------------------");
 			socket.close();
 			connectionSocket.close();
 		}

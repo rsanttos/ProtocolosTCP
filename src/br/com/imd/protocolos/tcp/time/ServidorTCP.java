@@ -10,12 +10,13 @@ import java.time.Instant;
 public class ServidorTCP {
 	public static void main(String[] args) throws IOException {
 
-		System.out.println("Servidor em execução...");
+		System.out.println("Servidor em execução.");
 		while (true) {
 			ServerSocket connectionSocket = new ServerSocket(7777);
+			System.out.println("--------------------------------------------------------------------");
 			System.out.println("Aguardando conexão do cliente...");
 			Socket socket = connectionSocket.accept();
-			System.out.println("Cliente " + socket.getInetAddress().getHostAddress() + " conectado!");
+			System.out.println("Cliente " + socket.getInetAddress().getHostAddress() + " conectado.");
 
 			DataInputStream inBytes = new DataInputStream(socket.getInputStream());
 			byte[] data = new byte[128];
@@ -29,7 +30,8 @@ public class ServidorTCP {
 			DataOutputStream outBytes = new DataOutputStream(socket.getOutputStream());
 			outBytes.writeInt((int) timeStampSeconds);
 
-			System.out.println("Timestamp: " + timeStampSeconds + " enviado para o cliente!");
+			System.out.println("Timestamp: " + timeStampSeconds + " enviado para o cliente.");
+			System.out.println("--------------------------------------------------------------------");
 
 			socket.close();
 			connectionSocket.close();

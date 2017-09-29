@@ -11,7 +11,7 @@ public class ClienteTCP {
 
 	public static void main(String[] args) throws IOException {
 
-		Socket socket = new Socket("localhost", 80);
+		Socket socket = new Socket("localhost", 7777);
 		System.out.println("Cliente conectado com o servidor " + socket.getInetAddress().getHostAddress() + ":"
 				+ socket.getPort());
 
@@ -19,11 +19,10 @@ public class ClienteTCP {
 		String mensagem = "";
 		mensagem = "Manda a hora aí!";				
 		outBytes.write(mensagem.getBytes());		
-		System.out.println("Mensagem enviada para servidor!");
 		
 		DataInputStream inBytes = new DataInputStream(socket.getInputStream());
-		int data = inBytes.readInt();
-		System.out.println("Segundos enviados pelo servidor: " + data);			
+		int milisegundos = inBytes.readInt();
+		System.out.println("Timestamp recebido do servidor: " + milisegundos);			
 		
 		socket.close();
 	}

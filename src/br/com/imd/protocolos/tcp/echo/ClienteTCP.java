@@ -23,13 +23,11 @@ public class ClienteTCP {
 		
 		outBytes.write(mensagem.getBytes());
 		
-		System.out.println("Mensagem enviada para servidor...");
-		
 		DataInputStream inBytes = new DataInputStream(socket.getInputStream());
 		byte[] data = new byte[128];
 		inBytes.read(data);
-		String rcvdMessage = new String(data).trim();
-		System.out.println(rcvdMessage);			
+		String mensagemRecebida = new String(data).trim();
+		System.out.println("Resposta do servidor: " + mensagemRecebida);			
 		
 		socket.close();
 	}
